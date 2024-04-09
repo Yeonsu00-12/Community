@@ -1,0 +1,64 @@
+body {
+    background-color: #F4F5F7;
+}
+
+.h1 {
+    font-size : 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 0 5rem;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    width: 600px;
+    margin-top: 10rem;
+}
+
+.name {
+    margin : 0;
+    font-size: 32px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    width : 100%;
+}
+
+.p_list1 {
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+}
+
+.p_list2 {
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.input--item {
+    padding: 0.5rem;
+    border: 1px solid #000000; /* 입력 필드의 테두리를 설정 */
+    border-radius: 0.3rem; 
+}
+
+.button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #7F6AEE;
+    border: none;
+    border-radius: 0.3rem;
+    font-family: sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 0.5rem;
+}

@@ -1,0 +1,85 @@
+body {
+    background-color: #F4F5F7;
+}
+
+.h1 {
+    font-size : 32px;
+    padding: 0 1rem;
+    margin: 0
+}
+
+.header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.arrow_button {
+    background: none;
+    border: none;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    width: 600px;
+    margin-top: 10rem;
+}
+
+.name {
+    margin : 0;
+    font-size: 32px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    width : 100%;
+}
+
+.image {
+    display: flex;
+    width: 103px;
+    height: 103px;
+    flex-direction: column;
+}
+
+.p {
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+}
+
+.image_div {
+    align-self: center; /*교차축 방향의 개별 아이템 정렬 방식*/
+}
+
+.input--item {
+    padding: 0.5rem;
+    border: 1px solid #000000;
+    border-radius: 0.3rem; 
+}
+
+.button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #7F6AEE;
+    border: none;
+    border-radius: 0.3rem;
+    font-family: sans-serif;
+    color: #ffffff;
+    font-weight: bold;
+}

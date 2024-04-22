@@ -16,21 +16,30 @@
     </header>
     <section class="wrap">
         <h1 class="name">회원가입</h1>
-        <div class="container">
-            <p class="p">프로필 사진</p>
-            <div class="image_div">
-                <img class="image" src="/images/img1.png"/>
+        <form id="form_signin" method="post" enctype="multipart/form-data" action="/register">
+            <div class="container">
+                <p class="p">프로필 사진</p>
+                <div class="image_div" onclick="document.getElementById('chooseFile').click();">
+                    <img class="image" src="/images/img1.png"/>
+                    <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)" style="display: none;">
+                    <div id="profile-error" class="error-message"></div>
+                </div>
+                <p class="p">이메일</p>
+                <input type="email" placeholder="이메일을 입력하세요." class="input--item" id="input_email"/>
+                <div id="email-error" class="error-message"></div>
+                <p class="p">비밀번호</p>
+                <input type="password" placeholder="비밀번호를 입력하세요." class="input--item" id="input_pw"/>
+                <div id="pw-error" class="error-message"></div>
+                <p class="p">비밀번호 확인</p>
+                <input type="password" placeholder="비밀번호를 한번 더 입력하세요." class="input--item" id="confirm_pw"/>
+                <div id="confirmPw-error" class="error-message"></div>
+                <p class="p">닉네임</p>
+                <input type="text" placeholder="닉네임을 입력하세요." class="input--item" id="input_nickname"/>
+                <div id="nickName-error" class="error-message"></div>
             </div>
-            <p class="p">이메일</p>
-            <input type="email" placeholder="이메일을 입력하세요." class="input--item"/>
-            <p class="p">비밀번호</p>
-            <input type="password" placeholder="비밀번호를 입력하세요." class="input--item"/>
-            <p class="p">비밀번호 확인</p>
-            <input type="password" placeholder="비밀번호를 한번 더 입력하세요." class="input--item"/>
-            <p class="p">닉네임</p>
-            <input type="text" placeholder="닉네임을 입력하세요." class="input--item"/>
-        </div>
-        <button type="submit" class="button" onclick="location.href='../login/login.html'">회원가입</button>
+            <button type="submit" class="button">회원가입</button>
+        </form>
     </section>
+    <script src="/signin.js"></script>
 </body>
 </html>

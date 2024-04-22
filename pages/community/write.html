@@ -23,16 +23,16 @@
             <div>
                 <h5>제목*</h5>
                 <hr/>
-                <input class="input" placeholder="제목을 입력해주세요. (최대 26글자)"/>
+                <input class="input" placeholder="제목을 입력해주세요. (최대 26글자)" id="title"/>
             </div>
             <hr class="line"/>
             <div class="input-container">
                 <h5>내용*</h5>
                 <hr style="margin-top: 1rem;"/>
-                <textarea rows="5" placeholder="내용을 입력해주세요."></textarea>
-                <!-- <input class="content_input" placeholder="내용을 입력해주세요."/> -->
+                <textarea rows="5" placeholder="내용을 입력해주세요." id="content"></textarea>
             </div>
             <hr class="line"/>
+            <div id="content-error" class="error-message"></div>
             <div>
                 <h5>이미지</h5>
                 <form action="/upload" method="post" enctype="multipart/form-data">
@@ -40,9 +40,10 @@
                 </form>
             </div>
             <div class="button_div">
-                <button class="submit" type="submit" onclick="location.href='./main.html'">완료</button>
+                <button class="submit" type="submit">완료</button>
             </div>
         </div>
     </section>
+    <script src="/post.js"></script>
 </body>
 </html>

@@ -121,10 +121,6 @@ form {
     font-size: small;
 }
 
-button:hover {
-    background-color: #7F6AEE;
-}
-
 .title_label {
     display: block;
     position: absolute;
@@ -143,4 +139,11 @@ button:hover {
     font-size: 15px;
     margin-top: 0.5rem;
     padding-left: 1.2rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    height: 20px;
 }

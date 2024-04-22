@@ -22,7 +22,7 @@ header{
 }
 
 .header_img {
-    width: 30;
+    width: 30px;
     height: 30px;
     border-radius: 50%;
     position: absolute; 
@@ -63,8 +63,9 @@ button {
     align-items: center;
 }
 
+
 button:hover {
-    background-color: #7F6AFF;
+    background-color: #7F6AEE;
 }
 
 .div1 {

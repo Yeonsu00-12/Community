@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/community/detailedInquiry.css"></link>
     <title>게시글 상세 조회 페이지</title>
-    <script src="../modal.js" defer></script>
 </head>
 <body>
     <div>
@@ -28,7 +27,7 @@
                     </div>
                     <div>
                         <button class="edit" onclick="location.href='./edit.html'">수정</button>
-                        <button class="delete" type="button">삭제</button>
+                        <button class="quit-btn" type="button" data-modal-target="#postModal">삭제</button>
                     </div>
                 </div>
                 <hr class="hr2"/>
@@ -45,31 +44,44 @@
             <article class="article4">
                 <textarea id="comment" placeholder="댓글을 남겨주세요!"></textarea>
                 <hr style="position: absolute; width: 600px; top: 1040px;"/>
-                <button class="submit" type="submit">대화 등록</button>
+                <div style="display: flex; position: absolute; justify-content: flex-end; height: 30px; width: 590px; top: 1060px;">
+                    <button class="submit" type="submit">대화 등록</button>
+                </div>
             </article>
-            <article class="article5">
-                <div style="    display: flex; align-items: center;">
+            <article class="article5" id="commentsContainer">
+                <div style="display: flex; align-items: center;">
                     <img class="subtitle_img" src="../images/me.png"/>
                     <p class="user_name">elle.park</p>
                     <p class="description">2024-04-05 10:18:00</p>
                 </div>
                 <div>
                     <button class="edit2" onclick="">수정</button>
-                    <button class="delete2" onclick="">삭제</button>
+                    <button class="quit-btn" onclick="" data-modal-target="#commentModal">삭제</button>
                 </div>
             </article>
             <div style="padding: 1.5rem;">댓글내용</div>
-        </section>
-        <div class="modal hidden">
-            <div class="modal_popup">
-                <h3>게시글을 삭제하시겠습니까?</h3>
-                <p>삭제한 내용은 복구 할 수 없습니다.</p>
-                <div>
-                    <button class="cancel_btn" type="button">취소</button>
-                    <button class="submit_btn" type="button"  onclick="location.href='../community/main.html'">확인</button>
+            <div id="postModal" class="modal hidden">
+                <div class="modal_popup">
+                    <h3>게시글을 삭제하시겠습니까?</h3>
+                    <p>삭제한 내용은 복구 할 수 없습니다.</p>
+                    <div>
+                        <button class="cancel_btn" type="button">취소</button>
+                        <button class="submit_btn" type="button"  onclick="location.href='../community/main.html'">확인</button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div id="commentModal1" class="modal hidden">
+                <div class="modal_popup">
+                    <h3>댓글을 삭제하시겠습니까?</h3>
+                    <p>삭제한 내용은 복구 할 수 없습니다.</p>
+                    <div>
+                        <button class="cancel_btn" type="button">취소</button>
+                        <button class="submit_btn" type="button"  onclick="location.href='../community/main.html'">확인</button>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+    <script src="/detail.js"></script>
 </body>
 </html>

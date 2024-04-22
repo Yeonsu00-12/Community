@@ -1,0 +1,8 @@
+{
+    "users" : [
+    { "id" : 1, "email" : "aaa@aaa.com", "password" : "EllePark123123!!", "nickname" : "연두" , "profile" : "/images/me.png"},
+    { "id" : 2, "email" : "bbb@bbb.com", "password" : "EllePark123123!!", "nickname" : "소라",  "profile" : "/images/profile1.jpeg"},
+    { "id" : 3, "email" : "ccc@ccc.com", "password" : "EllePark123123!!", "nickname" : "김유정",  "profile" : "/images/profile2.jpeg"}
+    
+    ]
+}

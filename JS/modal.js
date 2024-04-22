@@ -1,11 +1,8 @@
-
 const openBtn = document.querySelector('.quit-btn');
-const openBtn2 = document.querySelector('.delete')
 const closeBtn = document.querySelector('.cancel_btn');
 const modal = document.querySelector('.modal')
 
 openBtn.addEventListener('click', showModal);
-openBtn2.addEventListener('click',showModal);
 closeBtn.addEventListener('click', closeModal);
 
 function showModal() {

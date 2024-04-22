@@ -31,7 +31,7 @@ header {
 }
 
 .header_img {
-    width: 30;
+    width: 30px;
     height: 30px;
     border-radius: 50%;
     position: absolute; 
@@ -47,7 +47,7 @@ header {
     margin: 0
 }
 
-.edit, .delete {
+.edit, .quit-btn {
     border-radius: 5px;
     border: 1px solid #ACA0EB;
     height: 25px;
@@ -98,7 +98,7 @@ header {
     background-color: #ccc;
     border: none;
     height: 1px;
-    margin : 2rem 0;
+    margin : 1rem 0;
 }
 
 .info_div {
@@ -169,9 +169,6 @@ textarea {
 }
 
 .submit {
-    position: absolute;
-    top: 1060px;
-    left: 71rem;
     height: 30px;
     border: none;
     background-color: #ACA0EB;
@@ -205,6 +202,7 @@ textarea {
     height: 25px;
     width: 50px;
     background: none;
+    margin-right: 1rem;
 }
 
 
@@ -218,6 +216,7 @@ textarea {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 2;
 }
 
 .modal .modal_popup {
@@ -253,4 +252,15 @@ textarea {
 
 .visible{
     display: block;
+}
+
+.dimmed-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    display: none;
 }

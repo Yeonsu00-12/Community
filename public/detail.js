@@ -5,11 +5,13 @@ function showModal(modal) {
 
 function closeModal(modal) {
     document.getElementById('modalOverlay').style.display = 'none';
-    modal.style.display = 'none';
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.style.display = 'none';
+    })
 }
 
 function editPost() {
-    window.location.href = '../community/edit.html';
+    window.location.href = `../community/edit.html?id=${id}`;
     console.log('Editing post...');
 }
 
@@ -28,6 +30,36 @@ function deleteItem(itemType, itemid) {
     }
     closeModal();
 }
+
+function addModalClostEvent() {
+    document.querySelectorAll('.cancel_btn').forEach(btn => {
+        btn.addEventListener('click', () => closeModal(document.querySelector('.modal.visible')));
+    });
+}
+
+// 모달 바깥 영역 클릭 시 모달 닫기
+window.addEventListener('click', (e) => {
+    if(e.target === document.getElementById('modalOverlay')){
+        closeModal(document.querySelector('.modal.visible'));
+    }
+});
+
+// 댓글 등록 버튼에 대한 이벤트 리스너
+function setupCommentSubmit() {
+    const submitButton = document.querySelector('.submit');
+    submitButton.addEventListener('click', function() {
+        const editingCommentId = this.getAttribute('data-editing-comment-id');
+        if(editingCommentId) {
+            console.log('업데이트 된 ID:', editingCommentId);
+            resetCommentForm();
+            alert("댓글이 수정되었습니다.");
+        } else {
+            console.log('Submitting new comment');
+            alert("댓글이 등록되었습니다.");
+            document.getElementById('comment-textarea').value = '';
+        } 
+    });
+}// 새 댓글 등록 로직 수행...
 
 document.querySelector('.h1').addEventListener('click', () => {
     window.location.href = "../community/main.html"
@@ -85,7 +117,7 @@ fetch('/communityDetail.json')
             <hr class="hr2"/>
         </article>
         <article class="content">
-            <div class="empty_div"></div>
+            <div><img src="${detail.image}" class="empty_div"></div>
                 <p class="text">${detail.content}</p>
         </article>
         <article class="article3">
@@ -95,33 +127,32 @@ fetch('/communityDetail.json')
         <hr class="hr2"/>
         <article class="article4">
             <textarea id="comment-textarea"placeholder="댓글을 남겨주세요!"></textarea>
-            <hr style="position: absolute; width: 600px; top: 1040px;"/>
-            <div style="display: flex; position: absolute; justify-content: flex-end; height: 30px; width: 590px; top: 1000px;">
+            <div style="display: flex; padding: 0.5rem; justify-content: flex-end; height: 30px; width: 590px; top: 1000px;">
                 <button class="submit" type="submit">대화 등록</button>
             </div>
+            <hr style="width: 600px; top: 1040px; margin:0;"/>
         </article>
         <article class="article5">
             <div style="display: flex; flex-direction: column; width: 100%;">
                 ${detail.comments.map(comment =>{
                     const isCommentAuthor = userInfo && userInfo.nickname === comment.nickname;
-                    const commentModalId = `commentModal-${comment.id}`; // 고유 모달 ID
                     return `
                     <div class="comment-container" data-comment-id="${comment.id}">
-                        <div style="display: flex; flex-direction: row; align-items: center;">
-                            <img class="subtitle_img">${comment.userImage}</img>
+                        <div style="display: flex; flex-direction: row; align-items: center; margin-top: 1rem;">
+                            <img class="subtitle_img" src="${comment.userImage}">
                             <p class="user_name">${comment.nickname}</p>
                             <p class="description">${comment.comment_date}</p>
                         </div>
-                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding-left:2.5rem">
                             <p id="commentText-${comment.id}">${comment.comment}</p>
                             <div style="display: flex">
                             ${isCommentAuthor ? 
                                 `<div>
                                     <button data-comment-id="${comment.id}" class="edit2">수정</button>
-                                    <button id="comment-delete-btn-${comment.id}" class="quit-btn">삭제</button>
+                                    <button id="comment-delete-btn" data-comment-id="${comment.id}" class="quit-btn">삭제</button>
                                 </div>
                             ` : ""}
-                                <div id="${commentModalId}" class="modal hidden">
+                                <div id="commentModal-${comment.id}" class="modal hidden">
                                     <div class="modal_popup">
                                         <h3>댓글을 삭제하시겠습니까?</h3>
                                         <p>삭제한 내용은 복구 할 수 없습니다.</p>
@@ -141,24 +172,29 @@ fetch('/communityDetail.json')
 
         document.querySelector('.wrap').addEventListener('click', function(e) {
             // postModal에 대한 삭제 버튼 클릭 이벤트
-            if (e.target.id === 'post_cancel_btn') {
+            if (e.target.matches('#post_cancel_btn')) {
                 const modal = document.getElementById('postModal');
                 showModal(modal);
             }
-            // commentModal에 대한 취소 버튼 클릭 이벤트
-            if (e.target.classList.contains('cancel_btn')) {
-                document.querySelector('.cancel_btn').addEventListener('click', () => {
-                    closeModal(document.getElementById('postModal'));
-                })
+            // commentModal에 대한 삭제 버튼 클릭 이벤트
+            if (e.target.matches('#comment-delete-btn')) {
+                const commentId = e.target.getAttribute('data-comment-id');
+                console.log(commentId);
+                const modal = document.getElementById(`commentModal-${commentId}`);
+                showModal(modal);
             }
-            // commentModal에 대한 삭제 확인 버튼 클릭 이벤트
+            // commentModal에 대한 삭제 버튼 클릭 시 모달 표시
             if (e.target.id.startsWith('confirm_delete_btn')) {
                 // 댓글 삭제 로직 수행...
                 closeModal(document.getElementById('commentModal'));
             }
+            if (e.target.matches('.cancel_btn')) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => closeModal(modal));
+            }
             // 수정 버튼 클릭 이벤트
             if (e.target.classList.contains('edit2')) {
-                const commentId = event.target.getAttribute('data-comment-id');
+                const commentId = e.target.getAttribute('data-comment-id');
                 const commentText = document.querySelector(`#commentText-${commentId}`).textContent;
                 document.getElementById('comment-textarea').value = commentText;
                 document.querySelector('.submit').textContent = '댓글 수정';
@@ -166,41 +202,9 @@ fetch('/communityDetail.json')
             }
         });
 
-        // edit 버튼에 대한 이벤트 리스너
-        // 이 버튼이 동적으로 생성되지 않았다면 문제가 되지 않습니다.
+        setupCommentSubmit();
+        addModalClostEvent();
         document.querySelector('.edit').addEventListener('click', editPost);
-
-        // commentModal 닫기 버튼에 대한 이벤트 리스너
-        // closeModal 함수는 버튼의 ID를 참조하지 않으므로, 모든 모달에 대해 사용될 수 있습니다.
-        document.querySelectorAll('.cancel_btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const modals = document.querySelectorAll('.modal');
-                modals.forEach(modal => closeModal(modal));
-            });
-        });
-
-        // 모달 바깥 영역 클릭 시 모달 닫기
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('modalOverlay');
-            if(e.target === modal){
-                closeModal(document.querySelector('.modal.visible'));
-            }
-        });
-
-        // 댓글 등록 버튼에 대한 이벤트 리스너
-        const submitButton = document.querySelector('.submit');
-        submitButton.addEventListener('click', function() {
-            const editingCommentId = this.getAttribute('data-editing-comment-id');
-            if(editingCommentId) {
-                console.log('업데이트 된 ID:', editingCommentId);
-                resetCommentForm();
-                alert("댓글이 수정되었습니다.");
-            } else {
-                console.log('Submitting new comment');
-                alert("댓글이 등록되었습니다.");
-                document.getElementById('comment-textarea').value = '';
-            } // 새 댓글 등록 로직 수행...
-        });
     }else {
         console.log('상세정보를 찾을 수 없습니다.');
         console.log(id);

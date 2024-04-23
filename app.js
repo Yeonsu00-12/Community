@@ -50,6 +50,7 @@ const __dirname = path.dirname(__filename);
 // 'pages' 디렉토리를 정적 파일로 제공합니다.
 app.use(express.static(path.join(__dirname, 'pages')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/pages/images', express.static(path.join(__dirname, 'pages', 'images')));
 
 app.get('/', (req, res) => {
   // path.join을 사용하여 올바른 파일 경로를 구성합니다.

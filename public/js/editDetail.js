@@ -1,6 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const id = parseInt(params.get('id'),10);
-fetch('/communityDetail.json')
+fetch('/json/communityDetail.json')
 .then((res) => {
     if (!res.ok) {
         throw new Error('Network response was not ok ' + res.statusText);
@@ -24,7 +24,7 @@ fetch('/communityDetail.json')
         document.querySelector('.submit').addEventListener('click', () => {
             alert('게시글이 수정되었습니다.');
             setTimeout(() => {
-                window.location.href = `/community/detailedInquiry.html?id=${id}`;
+                window.location.href = `/detailedInquiry?id=${id}`;
             })
         })
     } else {

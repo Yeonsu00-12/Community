@@ -11,7 +11,7 @@ function closeModal(modal) {
 }
 
 function editPost() {
-    window.location.href = `../community/edit.html?id=${id}`;
+    window.location.href = `/edit?id=${id}`;
     console.log('Editing post...');
 }
 
@@ -62,7 +62,7 @@ function setupCommentSubmit() {
 }// 새 댓글 등록 로직 수행...
 
 document.querySelector('.h1').addEventListener('click', () => {
-    window.location.href = "../community/main.html"
+    window.location.href = "/"
 })
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -72,14 +72,14 @@ if(userInfo && userInfo.profile) {
 
 const params = new URLSearchParams(window.location.search);
 const id = parseInt(params.get('id',10));
-fetch('/communityDetail.json')
+fetch(`http://localhost:4000/posts/${item.id}`)
 .then((res) => {
     if (!res.ok) {
         throw new Error('Network response was not ok ' + res.statusText);
     }
     return res.json();
 })
-.then((data) => {
+.then(data => {
     const detail = data.data.find(detail => detail.id === id);
     if(detail){
         const constainer = document.querySelector('.wrap');
@@ -108,7 +108,7 @@ fetch('/communityDetail.json')
                             <p>삭제한 내용은 복구 할 수 없습니다.</p>
                             <div>
                                 <button class="cancel_btn" type="button">취소</button>
-                                <button id="confirm_btn" class="submit_btn" type="button"  onclick="location.href='../community/main.html'">확인</button>
+                                <button id="confirm_btn" class="submit_btn" type="button"  onclick="location.href='/'">확인</button>
                             </div>
                         </div>
                     </div>

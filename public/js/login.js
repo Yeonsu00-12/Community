@@ -48,42 +48,42 @@ window.onload = function() {
 
     signInBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        window.location.href = "../signin/signin.html";
+        window.location.href = "/signin";
     });
 
     document.querySelector('.h1').addEventListener('click', () => {
-        window.location.href = "../community/main.html"
+        window.location.href = "/"
     });
 
-    document.getElementById('form_login').addEventListener('submit',(e)=> {
+    document.getElementById('form_login').addEventListener('submit',async(e)=> {
         e.preventDefault();
-        fetch('user.json')
-        .then((res)=> {
-            if(!res.ok){
+        const email = emailInput.value;
+        const password = pwInput.value;
+
+        const formData = new FormData();
+        formData.append('email',email);
+        formData.append('password',password);
+        try {
+            const response = await fetch('http://localhost:4000/user/login', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email, password}),
+            });
+            if(!response.ok){
                 throw new Error('Network res was not ok');
             }
-            return res.json();
-        })
-        .then((data)=> {
-            const email = emailInput.value;
-            const password = pwInput.value;
-            const matchingUser = data.users.find(user => user.email === email);
-            console.log(data);
-            if(matchingUser && matchingUser.password === password){
-                console.log(data);
-                updateButton();
-                console.log(matchingUser);
-                localStorage.setItem('userInfo', JSON.stringify(matchingUser));
-                window.location.href = "../community/main.html";
-            } else if(matchingUser) {
-                alert("비밀번호가 다릅니다!");
-            }
-            else {
-                alert("로그인 실패 : 잘못된 이메일 또는 비밀번호입니다.");
-            }
-        })
-        .catch((error) => {
+            if(response.status === 200){
+                alert('로그인 성공!');
+                console.log('로그인 성공(프론트)');
+                window.location.href = "/";
+            }else {
+                alert("이메일과 비밀번호가 일치하지 않습니다");
+            } 
+        }catch(error) {
             console.error("error : ", error);
-        })
+        }
     });
 }

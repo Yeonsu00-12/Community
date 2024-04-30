@@ -5,7 +5,7 @@ const confirmPwError = document.getElementById("confirmPw-error");
 const editButton = document.querySelector('.button');
 
 document.querySelector('.h1').addEventListener('click', () => {
-    window.location.href = "../community/main.html"
+    window.location.href = "/"
 });
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -81,7 +81,7 @@ editButton.addEventListener('click', () => {
         showToast('수정완료!', 3000);
 
         setTimeout(() => {
-            window.location.href = "/community/main.html";
+            window.location.href = "/";
         },3200);
     }else {
         // If validations fail, display appropriate error messages

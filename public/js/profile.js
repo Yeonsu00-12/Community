@@ -4,7 +4,7 @@ const nickNameCheck = (name) => {
 }
 
 document.querySelector('.h1').addEventListener('click', () => {
-    window.location.href = "../community/main.html"
+    window.location.href = "/"
 });
 
 const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -47,7 +47,7 @@ if(userInfo && userInfo.email) {
                 <p>작성된 게시글과 댓글은 삭제됩니다.</p>
                 <div>
                     <button class="cancel_btn" type="button">취소</button>
-                    <button class="submit_btn" type="button"  onclick="location.href='../login/login.html'">확인</button>
+                    <button class="submit_btn" type="button"  onclick="location.href='/login'">확인</button>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@ if(userInfo && userInfo.email) {
 
 document.getElementById('nickname-edit-btn').addEventListener('click', () => {
     const nickNameInput = document.querySelector('.input--item').value;
-    fetch('/user.json')
+    fetch('/json/user.json')
     .then((res) => {
         if (!res.ok) {
             throw new Error('Network response was not ok ' + res.statusText);

@@ -1,19 +1,35 @@
+import { getUserInfo, logout, updateLoginState, requireAuth} from "./auth.js";
+
 document.querySelector('.h1').addEventListener('click', () => {
-    window.location.href = "../community/main.html"
+    window.location.href = "/"
 });
 
 document.querySelector('.header_img').addEventListener('click', () => {
-    window.location.href = "../user/profile.html";
+    window.location.href = "/profile";
+})
+
+document.querySelector('.button').addEventListener('click', () => {
+    requireAuth(() => {
+        window.location.href = './write';
+    })
 })
 
 document.addEventListener('DOMContentLoaded', () => {
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        if(userInfo && userInfo.profile) {
-            document.querySelector('.header_img').src = userInfo.profile;
-        }
-})
+    const loginButton = document.querySelector('.loginBtn');
+    const logoutButton = document.querySelector('.logoutBtn');
 
-fetch('/community.json')
+    loginButton.addEventListener('click', () => {
+        window.location.href = "/login";
+    });
+
+    logoutButton.addEventListener('click', () => {
+        logout();
+        window.location.href = "/login";
+    });
+    getUserInfo();
+});
+
+fetch('http://localhost:4000/posts')
         .then((res) => {
             if (!res.ok) {
                 throw new Error('Network response was not ok ' + res.statusText);
@@ -23,6 +39,7 @@ fetch('/community.json')
         .then((data) => {
             const container = document.querySelector('.container');
             container.innerHTML = '';
+            console.log('받은 게시물들 :', data.data);
 
             data.data.forEach(item => {
                 const titleCheck = item.title.length > 26 ? item.title.substring(0,23) + '...' : item.title;
@@ -37,14 +54,14 @@ fetch('/community.json')
                     </div>
                     <hr class="hr2"/>
                     <div class="user">
-                    <img class="subtitle_img" src="${item.author.profile}" alt="profile"/>
-                    <p class="user_name">${item.author.nickname}</p>
+                    <img class="subtitle_img" src="${item.auther?.profile || 'default-profile.png'}" alt="profile"/>
+                    <p class="user_name">${item.auther.nickname}</p>
                     </div>
                 `;
                 article.onclick = () => {
-                    window.location.href = `./detailedInquiry.html?id=${item.id}`;
+                    window.location.href = `/detailedInquiry/${item.id}`;
                 };
-                //선택한 요소 안에 자식요소 추가
+                // 선택한 요소 안에 자식요소 추가
                 container.appendChild(article);
             });
         })

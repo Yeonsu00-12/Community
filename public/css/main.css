@@ -16,6 +16,14 @@ header{
     position: relative;
 }
 
+.loginBtn {
+    border : none;
+}
+
+.logoutBtn {
+    border: none;
+}
+
 .hr1 {
     margin-top: 20px;
     border: 1px solid;
@@ -49,7 +57,7 @@ header{
     border-radius: 50rem;
 }
 
-button {
+.button {
     display: flex;
     border-radius: 0.5rem;
     width: 20%;
@@ -64,7 +72,7 @@ button {
 }
 
 
-button:hover {
+.button:hover {
     background-color: #7F6AEE;
 }
 

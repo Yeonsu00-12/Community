@@ -10,7 +10,7 @@ document.querySelector('.header_img').addEventListener('click', () => {
 
 document.querySelector('.button').addEventListener('click', () => {
     requireAuth(() => {
-        window.location.href = './write';
+        window.location.href = "/write";
     })
 })
 
@@ -39,27 +39,34 @@ fetch('http://localhost:4000/posts')
         .then((data) => {
             const container = document.querySelector('.container');
             container.innerHTML = '';
-            console.log('받은 게시물들 :', data.data);
+            console.log('받은 게시물들 :', data);
 
-            data.data.forEach(item => {
+            if(!data || data.length === 0) {
+                container.innerHTML = '<p>No posts available</p>';
+                return;
+            }
+
+            data.forEach(item => {
                 const titleCheck = item.title.length > 26 ? item.title.substring(0,23) + '...' : item.title;
+                const profileImageSrc = item.profileImage ? `http://localhost:4000/${item.profileImage}` : 'default-profile.png';
+                
                 // 요소 생성 createElement
                 const article = document.createElement('article');
                 article.className = 'dummy';
                 article.innerHTML = `
                     <h1 class="subtitle">${titleCheck}</h1>
                     <div class="info">
-                    <p class="description">좋아요 ${item.likely} 댓글 ${item.comment} 조회 수 ${item.check}</p>
-                    <p class="description">${item.date}</p>
+                    <p class="description">좋아요 ${item.likes} 댓글 ${item.commentCount} 조회 수 ${item.views}</p>
+                    <p class="description">${new Date(item.created_At).toLocaleString()}</p>
                     </div>
                     <hr class="hr2"/>
                     <div class="user">
-                    <img class="subtitle_img" src="${item.auther?.profile || 'default-profile.png'}" alt="profile"/>
-                    <p class="user_name">${item.auther.nickname}</p>
+                    <img class="subtitle_img" src="${profileImageSrc || 'default-profile.png'}" alt="profile"/>
+                    <p class="user_name">${item.nickname}</p>
                     </div>
                 `;
                 article.onclick = () => {
-                    window.location.href = `/detailedInquiry/${item.id}`;
+                    window.location.href = `/detailedInquiry/${item.postId}`;
                 };
                 // 선택한 요소 안에 자식요소 추가
                 container.appendChild(article);

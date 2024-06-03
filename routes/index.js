@@ -9,11 +9,11 @@ router.get('/login', ctrl.login);
 
 router.get('/signin', ctrl.signin);
 
-router.get('/detailedInquiry', ctrl.detailedInquiry);
+router.get('/detailedInquiry/:postId', ctrl.detailedInquiry);
 
 router.get('/write', ctrl.wrtie);
 
-router.get('/edit', ctrl.edit);
+router.get('/edit/:postId', ctrl.edit);
 
 router.get('/profile', ctrl.profile);
 
